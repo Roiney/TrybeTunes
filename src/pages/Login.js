@@ -4,31 +4,27 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: '',
+      nome: '',
     };
   }
 
-handleEmailChange = (evt) => {
-  this.setState({ email: evt.target.value });
-}
-
-handleSubmit = () => {
-  const { email, password } = this.state;
-  alert(`Welcome ${email}`);
+handleNameChange = (evt) => {
+  this.setState({ nome: evt.target.value });
 }
 
 render() {
-  const { email, password } = this.state;
-  const enabled = email.length > 0;
+  const { nome } = this.state;
+  const numerMin = 3;
+  const enabled = nome.length >= numerMin;
   return (
-    <form onSubmit={ this.handleSubmit }>
+    <form>
       <input
         type="text"
-        placeholder="Email"
-        value={ this.state.email }
-        onChange={ this.handleEmailChange }
+        placeholder="Digite aqui seu Nome"
+        value={ this.state.nome }
+        onChange={ this.handleNameChange }
       />
-      <button disabled={ !enabled }>Login</button>
+      <button disabled={ !enabled }>Entrar</button>
     </form>
   );
 }
