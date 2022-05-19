@@ -19,12 +19,13 @@ render() {
   return (
     <form>
       <input
+        data-testid="login-name-input"
         type="text"
         placeholder="Digite aqui seu Nome"
         value={ this.state.nome }
         onChange={ this.handleNameChange }
       />
-      <button disabled={ !enabled }>Entrar</button>
+      <button disabled={ !enabled } data-testid="login-submit-button">Entrar</button>
     </form>
   );
 }
