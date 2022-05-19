@@ -1,32 +1,61 @@
 import React from 'react';
+import { createUser } from '../services/userAPI';
+import Loading from '../components/Loading';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      nome: '',
+      name: '',
+      isLoading: false,
     };
   }
 
-handleNameChange = (evt) => {
-  this.setState({ nome: evt.target.value });
+  handleClick() {
+    createUser({ name });
+  }
+
+handleNameChange = ({ target }) => {
+  const { name, value } = target;
+  this.setState({ [name]: value });
+}
+
+chamarFunction = async () => {
+  const { name } = this.state;
+  const { history } = this.props;
+
+  this.setState({ isLoading: true });
+  await createUser({ name });
+  history.push('search');
 }
 
 render() {
-  const { nome } = this.state;
+  const { name, isLoading } = this.state;
   const numerMin = 3;
-  const enabled = nome.length >= numerMin;
+  const enabled = name.length >= numerMin;
   return (
-    <form>
-      <input
-        data-testid="login-name-input"
-        type="text"
-        placeholder="Digite aqui seu Nome"
-        value={ this.state.nome }
-        onChange={ this.handleNameChange }
-      />
-      <button disabled={ !enabled } data-testid="login-submit-button">Entrar</button>
-    </form>
+    <div data-testid="page-login">
+      {isLoading ? <Loading /> : (
+        <form>
+          <input
+            name="name"
+            data-testid="login-name-input"
+            type="text"
+            placeholder="Digite aqui seu name"
+            value={ name }
+            onChange={ this.handleNameChange }
+          />
+          <button
+            type="submit"
+            disabled={ !enabled }
+            data-testid="login-submit-button"
+            onClick={ this.chamarFunction }
+          >
+            Entrar
+          </button>
+        </form>
+      )}
+    </div>
   );
 }
 }
