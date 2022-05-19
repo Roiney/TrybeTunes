@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
 
@@ -31,6 +32,35 @@ class Header extends React.Component {
             <span data-testid="header-user-name">{ user.name }</span>
           </p>
         )}
+        <div>
+          <div>
+            <NavLink
+              data-testid="link-to-search"
+              activeClassName="active"
+              to="/search"
+            >
+              SEARCH
+            </NavLink>
+          </div>
+          <div>
+            <NavLink
+              data-testid="link-to-favorites"
+              activeClassName="active"
+              to="/favorites"
+            >
+              FAVORITES
+            </NavLink>
+          </div>
+          <div>
+            <NavLink
+              data-testid="link-to-profile"
+              activeClassName="active"
+              to="/profile"
+            >
+              PROFILE
+            </NavLink>
+          </div>
+        </div>
       </header>
     );
   }
