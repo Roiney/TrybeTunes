@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
 
 class Album extends React.Component {
   state = {
     musics: [],
     isLoading: true,
-    favoritoMensagem: false,
+    idMusicasFavorites: [],
   };
 
   async componentDidMount() {
@@ -19,27 +19,50 @@ class Album extends React.Component {
         params: { id },
       },
     } = this.props;
-    this.setState({ isLoading: false });
+    const favoritasMusicas = await getFavoriteSongs();
+    console.log('favoritasMusicas', favoritasMusicas);
+    const mapFavoritasMusicas = favoritasMusicas.map(({ trackId }) => trackId.toString());
+    console.log(mapFavoritasMusicas);
+    this.setState({ isLoading: false, idMusicasFavorites: mapFavoritasMusicas });
     const respostaDasMusicas = await getMusics(id);
     this.setState({ musics: [...respostaDasMusicas] });
+    // this.handleDownload();
   }
 
   onClick = async ({ target }) => {
-    const favorito = await this.handleFavorite(target.name);
-    this.setState({ favoritoMensagem: true });
-    const resultado = await addSong(favorito);
-    this.setState({ favoritoMensagem: false });
-    return resultado;
+    // this.setState({ isLoading: true });
+    const { idMusicasFavorites } = this.state;
+    if (target.checked) {
+      // await addSong(favorito);
+      this.setState((prevstate) => ({
+        idMusicasFavorites: [...prevstate.idMusicasFavorites, target.id] }));
+      // isLoading: false }), () => console.log('if', idMusicasFavorites));
+      this.setState({ isLoading: true }, async () => {
+        const favorito = await this.handleFavorite(target.name);
+        await addSong(favorito);
+        this.setState({ isLoading: false });
+      });
+    } else {
+      const idMusicasFavoRemove = idMusicasFavorites
+        .filter((idArray) => idArray !== target.id);
+      await addSong(favorito);
+      this.setState(({ idMusicasFavorites: idMusicasFavoRemove, isLoading: false }));
+    }
   }
 
   handleFavorite = (identificador) => {
     const { musics } = this.state;
-    const selecionado = musics.filter((item) => (item.trackName === identificador));
+    const selecionado = musics.find((item) => (item.trackName === identificador));
     return selecionado;
   }
 
+  // handleDownload = async () => {
+  //   const atualizar = await getFavoriteSongs();
+  //   return atualizar;
+  // }
+
   render() {
-    const { musics, isLoading, favoritoMensagem } = this.state;
+    const { musics, isLoading, idMusicasFavorites } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
@@ -54,9 +77,6 @@ class Album extends React.Component {
                   <p data-testid="artist-name">{artistName}</p>
                 </div>
               ))}
-            {favoritoMensagem ? <Loading /> : '' }
-            :
-            {' '}
             <div>
               {musics
                 .filter((_music, index) => index > 0)
@@ -67,6 +87,7 @@ class Album extends React.Component {
                     previewUrl={ previewUrl }
                     trackId={ trackId.toString() }
                     apertar={ this.onClick }
+                    marcado={ idMusicasFavorites }
                   />
                 ))}
             </div>
