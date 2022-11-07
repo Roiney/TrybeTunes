@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import './Header.css';
 
 class Header extends React.Component {
   constructor() {
@@ -32,8 +33,8 @@ class Header extends React.Component {
             <span data-testid="header-user-name">{ user.name }</span>
           </p>
         )}
-        <div>
-          <div>
+        <div className="header">
+          <div className="container">
             <NavLink
               data-testid="link-to-search"
               activeClassName="active"
@@ -42,7 +43,7 @@ class Header extends React.Component {
               SEARCH
             </NavLink>
           </div>
-          <div>
+          <div className="container">
             <NavLink
               data-testid="link-to-favorites"
               activeClassName="active"
@@ -51,7 +52,7 @@ class Header extends React.Component {
               FAVORITES
             </NavLink>
           </div>
-          <div>
+          <div className="container">
             <NavLink
               data-testid="link-to-profile"
               activeClassName="active"
