@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -33,24 +34,34 @@ render() {
   return (
     <div data-testid="page-login">
       {isLoading ? <Loading /> : (
-        <form>
-          <input
-            name="name"
-            data-testid="login-name-input"
-            type="text"
-            placeholder="Digite aqui seu name"
-            value={ name }
-            onChange={ this.handleNameChange }
-          />
-          <button
-            type="submit"
-            disabled={ !enabled }
-            data-testid="login-submit-button"
-            onClick={ this.chamarFunction }
-          >
-            Entrar
-          </button>
-        </form>
+        <div>
+          <h1>Realize seu Login</h1>
+          <div className="page-login">
+            <form>
+              <div className="input">
+                <input
+                  name="name"
+                  data-testid="login-name-input"
+                  type="text"
+                  placeholder="Digite aqui seu name"
+                  value={ name }
+                  onChange={ this.handleNameChange }
+                />
+              </div>
+              <div className="botton">
+                <button
+                  type="submit"
+                  disabled={ !enabled }
+                  data-testid="login-submit-button"
+                  onClick={ this.chamarFunction }
+                >
+                  Entrar
+                </button>
+              </div>
+              <img alt="login" src="http://www.meupositivo.com.br/doseujeito/wp-content/uploads/2021/03/historia-da-musica0.jpg" />
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );
