@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
 import './Album.css';
 
@@ -26,7 +26,6 @@ class Album extends React.Component {
     console.log(mapFavoritasMusicas);
     this.setState({ isLoading: false, idMusicasFavorites: mapFavoritasMusicas });
     const respostaDasMusicas = await getMusics(id);
-    console.log('respostaDasMusicas', respostaDasMusicas);
     this.setState({ musics: [...respostaDasMusicas] });
     // this.handleDownload();
   }
@@ -45,10 +44,13 @@ class Album extends React.Component {
         this.setState({ isLoading: false });
       });
     } else {
-      const idMusicasFavoRemove = idMusicasFavorites
-        .filter((idArray) => idArray !== target.id);
-      await addSong(favorito);
-      this.setState(({ idMusicasFavorites: idMusicasFavoRemove, isLoading: false }));
+      this.setState({ isLoading: true }, async () => {
+        const idMusicasFavoRemove = idMusicasFavorites
+          .filter((idArray) => idArray !== target.id);
+        const favorito = await this.handleFavorite(target.name);
+        await removeSong(favorito);
+        this.setState(({ idMusicasFavorites: idMusicasFavoRemove, isLoading: false }));
+      });
     }
   }
 

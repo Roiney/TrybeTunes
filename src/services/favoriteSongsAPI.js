@@ -30,6 +30,7 @@ export const getFavoriteSongs = () => new Promise((resolve) => {
 
 export const addSong = (song) => new Promise((resolve) => {
   if (song) {
+    console.log('chegou');
     const favoriteSongs = readFavoriteSongs();
     saveFavoriteSongs([...favoriteSongs, song]);
   }
@@ -37,6 +38,7 @@ export const addSong = (song) => new Promise((resolve) => {
 });
 
 export const removeSong = (song) => new Promise((resolve) => {
+  console.log('chegou');
   const favoriteSongs = readFavoriteSongs();
   saveFavoriteSongs(favoriteSongs.filter((s) => s.trackId !== song.trackId));
   simulateRequest(SUCCESS_STATUS)(resolve);
