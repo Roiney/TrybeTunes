@@ -2,13 +2,13 @@
 
 No projeto TrybeTunes,  construi uma aplicação capaz de reproduzir músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas. Essa aplicação será capaz de:
 
--Fazer login;
--Pesquisar por uma banda ou artista;
--Listar os álbuns disponíveis dessa banda ou artista;
--Visualizar as músicas de um álbum selecionado;
--Reproduzir uma prévia das músicas deste álbum;
--Favoritar e desfavoritar músicas;
--Ver a lista de músicas favoritas;
+* Fazer login;
+* Pesquisar por uma banda ou artista;
+* Listar os álbuns disponíveis dessa banda ou artista;
+* Visualizar as músicas de um álbum selecionado;
+* Reproduzir uma prévia das músicas deste álbum;
+* Favoritar e desfavoritar músicas;
+* Ver a lista de músicas favoritas;
 
 <h2 align="center"> Construção do projeto </h2>
 
