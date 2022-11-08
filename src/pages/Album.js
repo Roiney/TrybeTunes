@@ -26,6 +26,7 @@ class Album extends React.Component {
     console.log(mapFavoritasMusicas);
     this.setState({ isLoading: false, idMusicasFavorites: mapFavoritasMusicas });
     const respostaDasMusicas = await getMusics(id);
+    console.log('respostaDasMusicas', respostaDasMusicas);
     this.setState({ musics: [...respostaDasMusicas] });
     // this.handleDownload();
   }
@@ -72,24 +73,33 @@ class Album extends React.Component {
             {musics
               .filter((_music, index) => index === 0)
               .map(({ artworkUrl100, artistName, collectionName }) => (
-                <div key="album-header">
-                  <img src={ artworkUrl100 } alt="Album art" />
-                  <p data-testid="album-name">{collectionName}</p>
-                  <p data-testid="artist-name">{artistName}</p>
+                <div className="album-header" key="album-header">
+                  <div className="album-header-1">
+                    <img src={ artworkUrl100 } alt="Album art" />
+                  </div>
+                  <div className="album-header-2">
+                    <p data-testid="album-name">{collectionName}</p>
+                  </div>
+                  <div className="album-header-2">
+                    <p data-testid="artist-name">{artistName}</p>
+                  </div>
                 </div>
               ))}
-            <div>
+            <div className="album-header-3">
               {musics
                 .filter((_music, index) => index > 0)
                 .map(({ trackName, previewUrl, trackId }) => (
-                  <MusicCard
-                    key={ trackId }
-                    trackName={ trackName }
-                    previewUrl={ previewUrl }
-                    trackId={ trackId.toString() }
-                    apertar={ this.onClick }
-                    marcado={ idMusicasFavorites }
-                  />
+                  <div className="album-header-3" key={ trackId }>
+                    <MusicCard
+                      className="album-header-4"
+                      key={ trackId }
+                      trackName={ trackName }
+                      previewUrl={ previewUrl }
+                      trackId={ trackId.toString() }
+                      apertar={ this.onClick }
+                      marcado={ idMusicasFavorites }
+                    />
+                  </div>
                 ))}
             </div>
           </div>
