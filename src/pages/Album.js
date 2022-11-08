@@ -5,6 +5,7 @@ import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
+import './Album.css';
 
 class Album extends React.Component {
   state = {

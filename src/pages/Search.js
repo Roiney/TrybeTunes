@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import searchAlbums from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
+import './Search.css';
 
 class Search extends React.Component {
   constructor(props) {
@@ -81,27 +82,32 @@ class Search extends React.Component {
           </button>
         </div>
 
-        { isLoading
+        {isLoading
           ? (<Loading />)
           : (
 
             <div className="albuns-content">
-              { albums.length > 0 && (
+              {albums.length > 0 && (
                 <>
                   <p>
                     Resultado de álbuns de:
-                    { ' ' }
-                    { artistName }
+                    {' '}
+                    {artistName}
                   </p>
                   <div className="album-card-content">
-                    { albums.map((album) => (
+                    {albums.map((album) => (
                       <div
                         className="album-card"
                         key={ album.collectionId }
                       >
-                        <img alt={ album.collectionName } src={ album.artworkUrl100 } />
-                        <p className="album-colletion-name">{ album.collectionName }</p>
-                        <p>{ album.artistName }</p>
+                        <img
+                          className="album-colletion-img"
+                          alt={ album.collectionName }
+                          src={ album.artworkUrl100 }
+                        />
+                        <p className="album-colletion-name">{album.collectionName}</p>
+                        <p className="album-colletion-name">{album.artistName}</p>
+
                         <button
                           data-testid={ `link-to-album-${album.collectionId}` }
                           className="album-button"
@@ -111,15 +117,16 @@ class Search extends React.Component {
                           Ir para o album
                         </button>
                       </div>
+
                     )) }
                   </div>
                 </>
-              ) }
+              )}
               <div>
-                { albumEncontrado ? null : <p>Nenhum álbum foi encontrado</p> }
+                {albumEncontrado ? null : <p>Nenhum álbum foi encontrado</p>}
               </div>
             </div>
-          ) }
+          )}
 
       </div>);
   }

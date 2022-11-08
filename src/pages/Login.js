@@ -35,8 +35,9 @@ render() {
     <div data-testid="page-login">
       {isLoading ? <Loading /> : (
         <div>
-          <h1>Realize seu Login</h1>
+          <h1>TrybeTunes</h1>
           <div className="page-login">
+            <h3>Faça seu Login!</h3>
             <form>
               <div className="input">
                 <input

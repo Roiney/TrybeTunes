@@ -1,0 +1,32 @@
+.search-input-content {
+    margin-top: 5px;
+}
+
+.album-card {
+      margin-bottom: 15px;
+    background-color: #e8d3f5;
+}
+
+.album-colletion-name {
+    display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+}
+
+.album-card .album-colletion-img {
+ margin-top: 5px;
+ width: 200px;
+ margin: auto;
+ display: block;
+}
+
+.album-card .album-button {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
